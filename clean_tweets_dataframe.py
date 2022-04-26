@@ -14,26 +14,21 @@ class Clean_Tweets:
         unwanted_rows = df[df['retweet_count'] == 'retweet_count' ].index
         df.drop(unwanted_rows , inplace=True)
         df = df[df['polarity'] != 'polarity']
-        
         return df
+    
     def drop_duplicate(self, df:pd.DataFrame)->pd.DataFrame:
         """
         drop duplicate rows
         """
-        
-        ---
-        
+        df.drop_duplicates(subset=None, keep='first')    
         return df
+    
     def convert_to_datetime(self, df:pd.DataFrame)->pd.DataFrame:
         """
         convert column to datetime
         """
-        ----
-        
-        ----
-        
+        df['created_at'] = pd.to_datetime(df['created_at'])     
         df = df[df['created_at'] >= '2020-12-31' ]
-        
         return df
     
     def convert_to_numbers(self, df:pd.DataFrame)->pd.DataFrame:
@@ -41,18 +36,18 @@ class Clean_Tweets:
         convert columns like polarity, subjectivity, retweet_count
         favorite_count etc to numbers
         """
-        df['polarity'] = pd.----
-        
-        ----
-        ----
-        
+        df['polarity'] = pd.to_numeric(df['polarity'])
+        df['subjectivity'] = pd.to_numeric(df['subjectivity'])
+        df['retweet_count'] = pd.to_numeric(df['retweet_count'])
+        df['favorite_count'] = pd.to_numeric(df['favorite_count'])
+        df['reply_count'] = pd.to_numeric(df['reply_count'])
+        df['quote_count'] = pd.to_numeric(df['quote_count'])
+        df['subjectivity'] = pd.to_numeric(df['subjectivity'])        
         return df
     
     def remove_non_english_tweets(self, df:pd.DataFrame)->pd.DataFrame:
         """
         remove non english tweets from lang
         """
-        
-        df = ----
-        
+        df = df[df['lang'] == 'en']
         return df
